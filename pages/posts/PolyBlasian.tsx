@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import BlogImage from "../lib/components/BlogImage";
+import BlogImage from "../../lib/components/BlogImage";
 import { getMDXComponent } from "mdx-bundler/client";
 
 type PostProps = {
@@ -8,8 +8,7 @@ type PostProps = {
   frontmatter: string;
 };
 
-function BlogPost({ code, frontmatter }: PostProps) {
-  console.log(getMDXComponent);
+function PolyBlasian({ code, frontmatter }: PostProps) {
   const Component = React.useMemo(() => getMDXComponent(code), [code]);
   return (
     <Wrapper>
@@ -109,7 +108,7 @@ function BlogPost({ code, frontmatter }: PostProps) {
   );
 }
 
-export default BlogPost;
+export default PolyBlasian;
 
 const Wrapper = styled.div`
   margin-top: 75px;

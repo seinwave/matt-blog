@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styled, { createGlobalStyle } from "styled-components";
 import BlogPost from "./BlogPost";
-import Header from "./Header";
+import Header from "../lib/components/Header";
 
 const GlobalStyle = createGlobalStyle`
  h1 {
@@ -19,7 +19,6 @@ export default function Home() {
       <Container>
         <GlobalStyle />
         <Header />
-        <BlogPost />
       </Container>
     </>
   );
