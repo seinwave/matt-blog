@@ -2,12 +2,13 @@ import path from "path";
 import { bundleMDX } from "mdx-bundler";
 
 export const prepareMDX = async (
-  source: string,
-  options: {
-    files?: Record<string, string>;
-    directory?: string;
-    imagesUrl?: string;
-  }
+  source: string
+  //todo: may find use for this later
+  // options: {
+  //   files?: Record<string, string>;
+  //   directory?: string;
+  //   imagesUrl?: string;
+  // }
 ) => {
   // fix for next.js-specific build bug
   if (process.platform === "win32") {
@@ -27,25 +28,31 @@ export const prepareMDX = async (
     );
   }
 
-  const { directory, imagesUrl } = options;
+  // const { directory, imagesUrl } = options;
 
-  const { code } = await bundleMDX(source, {
-    cwd: directory,
+  const { code } = await bundleMDX(
+    source,
+    {}
 
-    esbuildOptions: (options) => {
-      options.outdir = path.join(process.cwd(), "public", imagesUrl);
-      options.loader = {
-        ...options.loader,
-        ".png": "file",
-        ".jpg": "file",
-        ".gif": "file",
-      };
-      options.publicPath = imagesUrl;
-      options.write = true;
+    //todo: may find use for this later
+    //   {
+    //   cwd: directory,
 
-      return options;
-    },
-  });
+    //   esbuildOptions: (options) => {
+    //     options.outdir = path.join(process.cwd(), "public", imagesUrl);
+    //     options.loader = {
+    //       ...options.loader,
+    //       ".png": "file",
+    //       ".jpg": "file",
+    //       ".gif": "file",
+    //     };
+    //     options.publicPath = imagesUrl;
+    //     options.write = true;
+
+    //     return options;
+    //   },
+    // }
+  );
 
   return code;
 };
