@@ -1,6 +1,5 @@
 import Head from "next/head";
 import styled, { createGlobalStyle } from "styled-components";
-import BlogPost from "./BlogPost";
 import Header from "../lib/components/Header";
 
 const GlobalStyle = createGlobalStyle`

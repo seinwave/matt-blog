@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import BlogImage from "../../lib/components/BlogImage";
+import BlogImage from "../../lib/components/blog-post/BlogImage";
 import { getMDXComponent } from "mdx-bundler/client";
 
 type PostProps = {

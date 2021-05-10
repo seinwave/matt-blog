@@ -1,8 +1,8 @@
 ---
-layout: post
 author: matt
 title: Za, mastered.
 published: 2020-08-06
+place: Brooklyn, NY
 human_published: Aug 06
 summary: For my reference, how to make the best pizza
 ---
