@@ -2,14 +2,15 @@ import React from "react";
 import { getAllPosts } from "../lib/data/posts-api";
 import styled from "styled-components";
 import { COLORS, FONTSIZES, SPACING, WEIGHTS } from "../styles/constants";
+import { v4 as uuid } from "uuid";
 import Link from "next/link";
 
 function Blog({ posts }) {
   let years = [];
-  console.log(posts);
+
   posts.map((post) => years.push(parseInt(post.frontmatter.year)));
   let uniqueYears = new Set(years);
-  console.log(uniqueYears);
+
   years = [...uniqueYears];
   years.sort((a, b) => (a > b ? -1 : 1));
 
@@ -20,7 +21,7 @@ function Blog({ posts }) {
         <BlogList>
           {years.map((year) => {
             return (
-              <YearWrapper>
+              <YearWrapper key={uuid()}>
                 <Year>{year}</Year>
                 {posts
                   .filter((post) => post.frontmatter.year == year)
@@ -31,7 +32,7 @@ function Blog({ posts }) {
                   )
                   .map((post) => {
                     return (
-                      <IndividualPostWrapper>
+                      <IndividualPostWrapper key={uuid()}>
                         <PublishedDateWrapper>
                           <PublishedDate>
                             {post.frontmatter.human_published

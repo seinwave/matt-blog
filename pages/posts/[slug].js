@@ -51,7 +51,7 @@ export async function getStaticPaths() {
 
 export default function Post({ ssrStyles, post }) {
   const { data, source } = post;
-  console.log(data);
+
   return (
     <>
       <Helmet>
