@@ -3,13 +3,13 @@ author: matt
 title: Za, mastered.
 published: 2020-08-06
 place: Brooklyn, NY
-human_published: Aug 06
+human_published: Aug 06, 2020
 summary: For my reference, how to make the best pizza
 ---
 
 Oh man. Not to fill this blog with baking brags. But look at this shit.
 
-![pizza slices](/assets/images/pizza-cut.jpeg){: .entry-image}
+![pizza slices](/images/pizza-cut.jpeg){: .entry-image}
 _I've never done anything better_
 
 And these weren't just pretty, either.
@@ -24,12 +24,12 @@ I'm not disavowing my earlier efforts, exactly. They weren't bad. But today's pi
 
 The crust broke with this beautiful lightness in the mouth. The cook was consistent across the entire pie, too, which is a rare achievement for me.
 
-![pizza underside](/assets/images/pizza-undercook.jpeg){: .entry-image}
+![pizza underside](/images/pizza-undercook.jpeg){: .entry-image}
 _Ooh baby_
 
 What was the secret? Once again, high-gluten flour.
 
-![high-gluten flour](/assets/images/kahgf.jpg){: .entry-image}
+![high-gluten flour](/images/kahgf.jpg){: .entry-image}
 _Makes everything better_
 
 That, plus the following steps, which are what I do for all of my pies:

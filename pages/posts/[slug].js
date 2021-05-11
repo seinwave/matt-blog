@@ -1,24 +1,35 @@
-import React from "react";
+import React, { renderToString } from "react";
 import styled from "styled-components";
+import { ServerStyleSheet } from "styled-components";
 import BlogImage from "../../lib/components/blog-post/BlogImage";
 import { getPostBySlug, getAllPosts } from "../../lib/data/posts-api";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
+import { Helmet } from "react-helmet";
+
+const StyleProvider = (props) => {
+  return (
+    <StyleSheetManager sheet={props.sheetInstance}>
+      <ThemeProvider theme={THEME}>{props.children}</ThemeProvider>
+    </StyleSheetManager>
+  );
+};
 
 export async function getStaticProps({ params }) {
   const sourceObj = JSON.parse(JSON.stringify(getPostBySlug(params.slug)));
 
-  console.log("RAW POST IS:", sourceObj.content);
-
-  const mdxSource = await serialize(sourceObj.content);
-  console.log(mdxSource);
+  const source = await serialize(sourceObj.markdown);
+  const data = sourceObj.frontmatter;
+  const sheet = new ServerStyleSheet();
+  const ssrStyles = sheet.instance.toString();
 
   return {
     props: {
       post: {
-        source: mdxSource,
-        data: sourceObj.post.data,
+        source,
+        data,
       },
+      ssrStyles,
     },
   };
 }
@@ -30,7 +41,7 @@ export async function getStaticPaths() {
     paths: posts.map((post) => {
       return {
         params: {
-          slug: post.post.data.slug,
+          slug: post.frontmatter.slug,
         },
       };
     }),
@@ -38,21 +49,27 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Post({ post }) {
+export default function Post({ ssrStyles, post }) {
   const { data, source } = post;
+  console.log(data);
   return (
-    <Wrapper>
-      <Title>{data.title}</Title>
-      <Byline>
-        <PublishedPlace>{data.place}</PublishedPlace>•
-        <PublishedDate>Oct 22, 2021</PublishedDate>
-      </Byline>
-      <BodyWrapper>
-        <Body>
-          <MDXRemote {...source} components={components} />
-        </Body>
-      </BodyWrapper>
-    </Wrapper>
+    <>
+      <Helmet>
+        <style dangerouslySetInnerHTML={{ __html: ssrStyles }} />
+      </Helmet>
+      <Wrapper>
+        <Title>{data.title}</Title>
+        <Byline>
+          <PublishedPlace>{data.place}</PublishedPlace>•
+          <PublishedDate>{data.human_published}</PublishedDate>
+        </Byline>
+        <BodyWrapper>
+          <Body>
+            <MDXRemote {...source} components={COMPONENTS} />
+          </Body>
+        </BodyWrapper>
+      </Wrapper>
+    </>
   );
 }
 
@@ -97,7 +114,12 @@ const Body = styled.div`
   font-weight: 400;
 `;
 
-const components = {
+const Subhed = styled.h2`
+  text-align: center;
+`;
+
+const COMPONENTS = {
   img: BlogImage,
   p: Text,
+  h2: Subhed,
 };

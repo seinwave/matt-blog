@@ -6,8 +6,10 @@ import Link from "next/link";
 
 function Blog({ posts }) {
   let years = [];
-  posts.map((post) => years.push(parseInt(post.year)));
+  console.log(posts);
+  posts.map((post) => years.push(parseInt(post.frontmatter.year)));
   let uniqueYears = new Set(years);
+  console.log(uniqueYears);
   years = [...uniqueYears];
   years.sort((a, b) => (a > b ? -1 : 1));
 
@@ -21,29 +23,37 @@ function Blog({ posts }) {
               <YearWrapper>
                 <Year>{year}</Year>
                 {posts
-                  .filter((post) => post.year == year)
+                  .filter((post) => post.frontmatter.year == year)
                   .sort((post1, post2) =>
-                    post1.published < post2.published ? -1 : 1
+                    post1.frontmatter.published > post2.frontmatter.published
+                      ? -1
+                      : 1
                   )
                   .map((post) => {
                     return (
                       <IndividualPostWrapper>
                         <PublishedDateWrapper>
                           <PublishedDate>
-                            {post.data.human_published
-                              ? post.data.human_published
+                            {post.frontmatter.human_published
+                              ? post.frontmatter.human_published.replace(
+                                  /,\s\d\d\d\d/,
+                                  ""
+                                )
                               : "Jun 01"}
                           </PublishedDate>
                         </PublishedDateWrapper>
-                        <Link as={`/posts/${post.slug}`} href="/posts/[slug]">
+                        <Link
+                          as={`/posts/${post.frontmatter.slug}`}
+                          href="/posts/[slug]"
+                        >
                           <PostContentWrapper>
                             <PostTopLineWrapper>
-                              <Title>{post.data.title}</Title>
+                              <Title>{post.frontmatter.title}</Title>
                               {/* <ReadStatus>Unread</ReadStatus> */}
                             </PostTopLineWrapper>
                             <Summary>
-                              {post.data.summary
-                                ? post.data.summary
+                              {post.frontmatter.summary
+                                ? post.frontmatter.summary
                                 : "A brief snippet of a line from a movie, whomst is bad"}
                             </Summary>
                           </PostContentWrapper>
